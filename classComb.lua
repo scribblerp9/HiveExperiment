@@ -52,21 +52,6 @@ end
 
 function Comb:addHoney(addition)
 
-	--[[
-	local scale = comb.honeyShape:getScaleX() -- Don't need to get X and Y scale as we will be keeping them the same anyway
-	local posX = comb.honeyShape:getX()
-	local posY = comb.honeyShape:getY()
-	local delta = 0.002 -- This controls how quickly the honey "fills up"
-	
-	if(scale >= 0.95) then
-		return
-	end
-	--print(honeyFillTimer:getCurrentCount())
-	comb.honeyShape:setScale(scale+delta, scale+delta) -- Increase size slightly
-	comb.honeyShape:setPosition(posX-(delta*(comb.edgeLength/2)), posY-(delta*(comb.edgeLength/1.15))) -- This formula keeps the honeyShape in the centre of the comb
-	]]--
-
-
 	if (self.honeyCur+addition < self.honeyMax) then -- As long as this addition does not take the honey level above the max
 		-- Increase the comb's honey level
 		self.honeyCur = self.honeyCur + addition

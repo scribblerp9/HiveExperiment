@@ -9,8 +9,8 @@ function hiveScene:init()
 	end
 
 	-- Setup array for storing entire hive and bees
-	hive = {}
-	totNumCombs = 1
+	self.hive = {}
+	self.totNumCombs = 1
 	bees = {}
 
 	-- Set look parameters
@@ -46,13 +46,51 @@ function hiveScene:init()
 	else
 		-- Calculate where to position Hive
 		local hivePosX = (application:getDeviceWidth() - ((hiveNumPerRow*combSize*2) + (combSize*(hiveNumPerRow-1) - combSize))) /2
-		createHive(hivePosX, 50, combSize, hiveNumRows, hiveNumPerRow)
+		createHive(hivePosX, 50, combSize, hiveNumRows, hiveNumPerRow, self)
 	end
 	standardBeeMoveDelay = 2000
 	createBees(beesNum, beeSize)
 
 	-- Setup hive creation timer
-	hiveCreationTimer = Timer.new(0, #hive)
+	hiveCreationTimer = Timer.new(0, #self.hive)
+
+	-- Show the comb when the hive creation timer fires
+	function onHiveCreationTimer()
+		thisComb = self.hive[hiveCreationTimer:getCurrentCount()]
+		stage:addChild(thisComb)
+		--stage:addChild(thisComb.centreDot) --Debug
+	end
+
+	-- Do something when the comb is fully displayed
+	function onHiveCreationTimerComplete(e)
+		print("Hive Created", e:getTarget(), e:getType())
+		
+		-- Add bees to stage and start their movement timers
+		for i=1, #bees do
+			stage:addChild(bees[i])
+			bees[i].moveTimer:start()
+		end
+	end
+	
+	-- After the bee has waited on a comb move it to the next comb
+	function onBeeMovementTimer(beeIndex, timer)
+		
+		-- Find a comb to move to
+		destinationComb = math.random(1, #self.hive)
+		while (self.hive[destinationComb].bee ~= nil) do -- If the comb is occupied then pick another comb
+			destinationComb = math.random(1, #self.hive)
+		end
+		
+		-- Move the bee
+		bees[beeIndex]:move(self.hive[destinationComb])
+			
+		-- Set a new delay so its not the same everytime
+		--local newDelay = math.random(standardBeeMoveDelay-500, standardBeeMoveDelay+3000)
+		local newDelay = math.random(standardBeeMoveDelay+2000, standardBeeMoveDelay+8000)
+		bees[beeIndex].moveTimer:setDelay(newDelay)
+		
+		print("Bee "..beeIndex.." is moving to comb "..destinationComb.." and won't move for another "..newDelay.." milliseconds", timer:getTarget(), timer:getType())
+	end
 
 	-- Setup listener functions for events
 	hiveCreationTimer:addEventListener(Event.TIMER, onHiveCreationTimer)
@@ -69,7 +107,7 @@ function hiveScene:init()
 		Bitmap.new(Texture.new("buttonClass/button_down.png"))
 	)	 
 	forestButton:setPosition(
-		((application:getDeviceWidth()-forestButton:getWidth())/2),
+		((application:getDeviceWidth()-forestButton:getWidth())/4),
 		((application:getDeviceHeight()-forestButton:getHeight())-20)
 	)
 	stage:addChild(forestButton)
@@ -77,6 +115,7 @@ function hiveScene:init()
 	forestButton:addEventListener("click",
 		function() 
 			print("Off to the Forest with you")
+			sceneManager:changeScene("forestScene", 1, SceneManager.flipWithFade, easing.outBack)
 		end
 	)
 

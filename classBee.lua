@@ -398,22 +398,3 @@ function Bee:move (destinationComb)
 	destinationComb.bee = self
 end
 
--- After the bee has waited on a comb move it to the next comb
-function onBeeMovementTimer(beeIndex, timer)
-	
-	-- Find a comb to move to
-	destinationComb = math.random(1, #hive)
-	while (hive[destinationComb].bee ~= nil) do -- If the comb is occupied then pick another comb
-		destinationComb = math.random(1, #hive)
-	end
-	
-	-- Move the bee
-	bees[beeIndex]:move(hive[destinationComb])
-		
-	-- Set a new delay so its not the same everytime
-	--local newDelay = math.random(standardBeeMoveDelay-500, standardBeeMoveDelay+3000)
-	local newDelay = math.random(standardBeeMoveDelay+2000, standardBeeMoveDelay+8000)
-	bees[beeIndex].moveTimer:setDelay(newDelay)
-	
-	print("Bee "..beeIndex.." is moving to comb "..destinationComb.." and won't move for another "..newDelay.." milliseconds", timer:getTarget(), timer:getType())
-end

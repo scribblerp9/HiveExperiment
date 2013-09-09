@@ -3,6 +3,7 @@
   <imageScales/>
  </properties>
  <folder name="scenes">
+  <file source="sceneForest.lua"/>
   <file source="sceneHive.lua"/>
  </folder>
  <folder name="classes">
