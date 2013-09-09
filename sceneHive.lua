@@ -24,7 +24,7 @@ function hiveScene:init()
 	local beesNum = 20
 	]]--
 
-	-- Debug parameters
+	-- General Debug parameters
 	local combSize = 120
 	local hiveNumRows = 7
 	local hiveNumPerRow = 2
@@ -62,5 +62,22 @@ function hiveScene:init()
 	end
 	-- Start the hive creation timer
 	hiveCreationTimer:start()
+	
+	-- Display button for switching to Forest scene
+	local forestButton = Button.new(
+		Bitmap.new(Texture.new("buttonClass/button_up.png")),
+		Bitmap.new(Texture.new("buttonClass/button_down.png"))
+	)	 
+	forestButton:setPosition(
+		((application:getDeviceWidth()-forestButton:getWidth())/2),
+		((application:getDeviceHeight()-forestButton:getHeight())-20)
+	)
+	stage:addChild(forestButton)
+	 
+	forestButton:addEventListener("click",
+		function() 
+			print("Off to the Forest with you")
+		end
+	)
 
 end
