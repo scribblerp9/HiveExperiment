@@ -2,22 +2,28 @@
  <properties autorotation="0" encrypt="0" fps="60" scaleMode="0" mouseToTouch="1" iosDevice="0" packageName="com.yourdomain.yourapp" logicalHeight="480" logicalWidth="320" mouseTouchOrder="0" retinaDisplay="0" touchToMouse="1" assetsOnly="0" orientation="0" architecture="0">
   <imageScales/>
  </properties>
+ <file source="../Scene-Manager/button.lua"/>
+ <file source="../Scene-Manager/easing.lua"/>
+ <file source="sceneHive.lua"/>
+ <file source="../Scene-Manager/scenemanager.lua"/>
  <file source="funcMisc.lua"/>
  <file source="funcTouch.lua"/>
  <file source="funcCreation.lua"/>
  <file source="classComb.lua"/>
  <file source="classBee.lua"/>
  <file source="main.lua"/>
+ <dependency from="../Scene-Manager/scenemanager.lua" to="../Scene-Manager/easing.lua"/>
  <dependency from="classBee.lua" to="funcMisc.lua"/>
  <dependency from="classComb.lua" to="funcMisc.lua"/>
+ <dependency from="funcCreation.lua" to="funcTouch.lua"/>
  <dependency from="funcCreation.lua" to="funcMisc.lua"/>
  <dependency from="funcCreation.lua" to="classBee.lua"/>
- <dependency from="funcCreation.lua" to="funcTouch.lua"/>
  <dependency from="funcCreation.lua" to="classComb.lua"/>
  <dependency from="funcTouch.lua" to="funcMisc.lua"/>
+ <dependency from="main.lua" to="funcTouch.lua"/>
  <dependency from="main.lua" to="funcMisc.lua"/>
  <dependency from="main.lua" to="classBee.lua"/>
- <dependency from="main.lua" to="funcTouch.lua"/>
  <dependency from="main.lua" to="classComb.lua"/>
  <dependency from="main.lua" to="funcCreation.lua"/>
+ <dependency from="main.lua" to="../Scene-Manager/scenemanager.lua"/>
 </project>
