@@ -6,7 +6,7 @@ function Bee:init(centreX, centreY, size)
 	self.centreX = centreX
 	self.centreY = centreY
 	self.size = size
-	
+	print("bee within class",self)
 	-- Set timers
 	self.moveTimer = nil -- This is set later when the bee is created
 	

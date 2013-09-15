@@ -9,3 +9,10 @@ function getKeyForValue (array, value)
 	end
 	
 end
+
+function xferHoneyFromBeeToComb (comb, bee, xferAmount)
+	if ((comb.honeyCur < comb.honeyMax) and (bee.honeyCur > 0)) then -- If the comb is not already full and the bee has honey left
+		comb:addHoney(xferAmount)
+		bee:reduceHoney(xferAmount)
+	end
+end
