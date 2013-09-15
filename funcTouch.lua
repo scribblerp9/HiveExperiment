@@ -10,8 +10,8 @@ function onMouseDown(self, event)
 		event:stopPropagation()
 		
 		-- Check if a comb was tapped
-		for combIndex in pairs(hiveScene.hive) do
-			if hiveScene.hive[combIndex] == self then
+		for combIndex in pairs(hive) do
+			if hive[combIndex] == self then
 				print("Comb "..combIndex.." tapped")
 			end
 		end

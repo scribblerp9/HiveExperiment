@@ -72,10 +72,10 @@ length = length of each side of a combs
 	factor = 0
 	for i = 1, numCombs do
 		local comb = createComb(posX + (length*3*factor), posY, length)
-		comb.hiveIndex = hiveScene.totNumCombs
+		comb.hiveIndex = totNumCombs
 
-		hiveScene.hive[hiveScene.totNumCombs] = comb
-		hiveScene.totNumCombs = hiveScene.totNumCombs + 1
+		hive[totNumCombs] = comb
+		totNumCombs = totNumCombs + 1
 		factor = factor + 1
 	end
 end
@@ -109,7 +109,7 @@ function createBee (bodyLen, posiX, posiY)
 	
 	-- Initiate bee
 	local bee = Bee.new(posX, posY, bodyLen)
-	print("bee funccreation",bee)
+	--print("bee funccreation",bee)
 	-- Set position of bee on screen
 	bee:setPosition(posiX,posiY)
 
@@ -121,14 +121,14 @@ function createBees (numBees, beeSize)
 	for i = 1, numBees do		
 		
 		--[[ Start each bee on a comb (but do not fill honey on ths start comb)
-		startComb = math.random(1, #hivehiveScene.hive)
-		while (hivehiveScene.hive[startComb].bee ~= nil) do -- If the comb is occupied then pick another comb
-			startComb = math.random(1, #hivehiveScene.hive)
+		startComb = math.random(1, #hivehive)
+		while (hivehive[startComb].bee ~= nil) do -- If the comb is occupied then pick another comb
+			startComb = math.random(1, #hivehive)
 		end
-		bees[i] = createBee(beeSize, hivehiveScene.hive[startComb].centreX, hivehiveScene.hive[startComb].centreY)
-		bees[i].comb = hivehiveScene.hive[startComb]
+		bees[i] = createBee(beeSize, hivehive[startComb].centreX, hivehive[startComb].centreY)
+		bees[i].comb = hivehive[startComb]
 		bees[i].swarmIndex = i
-		hivehiveScene.hive[startComb].bee = bees[i]
+		hivehive[startComb].bee = bees[i]
 		
 		initBeeMoveDelay = math.random(200, 7000)
 		bees[i].moveTimer = Timer.new(initBeeMoveDelay)
@@ -145,11 +145,11 @@ function createBees (numBees, beeSize)
 			startY = math.random(-maxOffscreenDist, application:getDeviceHeight()+maxOffscreenDist)
 		end
 		
-		hiveScene.bees[i] = createBee(beeSize, startX, startY)
-		hiveScene.bees[i].swarmIndex = i
+		swarm[i] = createBee(beeSize, startX, startY)
+		swarm[i].swarmIndex = i
 
 		initBeeMoveDelay = math.random(200, 7000)
-		hiveScene.bees[i].moveTimer = Timer.new(initBeeMoveDelay)
+		swarm[i].moveTimer = Timer.new(initBeeMoveDelay)
 	end
 	
 end

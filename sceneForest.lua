@@ -11,7 +11,7 @@ function forestScene:init()
 		(((application:getDeviceWidth()-hiveButton:getWidth())/4)*3),
 		((application:getDeviceHeight()-hiveButton:getHeight())-20)
 	)
-	stage:addChild(hiveButton)
+	self:addChild(hiveButton)
 	 
 	hiveButton:addEventListener("click",
 		function() 

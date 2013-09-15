@@ -1,5 +1,10 @@
 
 
+-- Setup storage for swarm and hive
+hive = {}
+totNumCombs = 1
+swarm = {}
+
 -- Setup scenes
 sceneManager = SceneManager.new({
     ["hiveScene"] = hiveScene,
